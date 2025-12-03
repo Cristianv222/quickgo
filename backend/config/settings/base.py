@@ -9,7 +9,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 
 # Application definition
-pythonINSTALLED_APPS = [
+INSTALLED_APPS = [
     # Local apps - users DEBE IR PRIMERO antes que django.contrib.admin
     'apps.users',
     
