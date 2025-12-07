@@ -9,9 +9,10 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import { userAPI, authAPI } from '../../api';
+import { userAPI } from '../../api';
+import { useAuth } from '../../context/AuthContext'; // ✅ AGREGAR ESTO
 
-export default function ProfileScreen({ navigation, route }: any) {
+export default function ProfileScreen({ navigation }: any) {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -21,7 +22,7 @@ export default function ProfileScreen({ navigation, route }: any) {
     phone: '',
   });
 
-  const onLogout = route.params?.onLogout;
+  const { logout } = useAuth(); // ✅ OBTENER logout del contexto
 
   useEffect(() => {
     loadProfile();
@@ -80,8 +81,11 @@ export default function ProfileScreen({ navigation, route }: any) {
           text: 'Cerrar Sesión',
           style: 'destructive',
           onPress: async () => {
-            if (onLogout) {
-              await onLogout();
+            try {
+              await logout(); // ✅ USAR logout del contexto
+            } catch (error) {
+              console.error('Error al cerrar sesión:', error);
+              Alert.alert('Error', 'No se pudo cerrar sesión');
             }
           },
         },

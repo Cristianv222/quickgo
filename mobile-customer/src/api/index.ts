@@ -1,8 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// URL del backend - Usando tu IP local
-const API_URL = 'http://192.168.1.2:8000/api';
+// URL del backend - CORREGIDA
+const API_URL = 'http://192.168.1.16:8000/api';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -53,12 +53,12 @@ export const authAPI = {
 
 export const userAPI = {
   getProfile: async () => {
-    const response = await api.get('/profile/');
+    const response = await api.get('/auth/profile/'); // ⚠️ TAMBIÉN CORREGIDO
     return response.data;
   },
 
   updateProfile: async (data: any) => {
-    const response = await api.put('/profile/update/', data);
+    const response = await api.put('/auth/profile/update/', data); // ⚠️ TAMBIÉN CORREGIDO
     return response.data;
   },
 };

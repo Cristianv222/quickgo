@@ -6,15 +6,16 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
-  SafeAreaView,
-  Image,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context'; // ✅ Cambiado
 import { authAPI } from '../../api';
 import { Avatar, Card, Button } from 'react-native-paper';
+import { useAuth } from '../../context/AuthContext'; // ✅ Agregado
 
 export default function HomeScreen({ navigation }: any) {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const { logout } = useAuth(); // ✅ Obtener logout del contexto
 
   useEffect(() => {
     loadUser();
@@ -33,8 +34,7 @@ export default function HomeScreen({ navigation }: any) {
 
   const handleLogout = async () => {
     try {
-      await authAPI.logout();
-      navigation.replace('Login');
+      await logout(); // ✅ Usar logout del contexto
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
@@ -101,19 +101,16 @@ export default function HomeScreen({ navigation }: any) {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerContent}>
             <View style={styles.userInfo}>
-              <Avatar.Image
+              <Avatar.Text
                 size={60}
-                source={
-                  user?.avatar
-                    ? { uri: user.avatar }
-                    : require('../../assets/icon.png')
-                }
+                label={user?.first_name?.charAt(0) || 'U'}
+                style={styles.avatar}
               />
               <View style={styles.userText}>
                 <Text style={styles.greeting}>¡Hola,</Text>
@@ -225,7 +222,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#FF6B35',
     padding: 20,
-    paddingTop: 40,
+    paddingTop: 20,
   },
   headerContent: {
     flexDirection: 'row',
@@ -235,6 +232,9 @@ const styles = StyleSheet.create({
   userInfo: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  avatar: {
+    backgroundColor: '#FF8C5A',
   },
   userText: {
     marginLeft: 15,
