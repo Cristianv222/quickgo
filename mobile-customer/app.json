@@ -1,13 +1,13 @@
-﻿{
+{
   "expo": {
     "name": "QuickGo",
     "slug": "quickgo-customer",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,10 +20,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.quickgo.customer"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a9d73538-6e36-439a-9a7a-a2c99c5e3ca9"
+      }
     }
   }
 }
