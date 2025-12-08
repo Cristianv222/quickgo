@@ -6,16 +6,17 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
+  Alert,  // ✅ AGREGADO
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context'; // ✅ Cambiado
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { authAPI } from '../../api';
 import { Avatar, Card, Button } from 'react-native-paper';
-import { useAuth } from '../../context/AuthContext'; // ✅ Agregado
+import { useAuth } from '../../context/AuthContext';
 
 export default function HomeScreen({ navigation }: any) {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const { logout } = useAuth(); // ✅ Obtener logout del contexto
+  const { logout } = useAuth();
 
   useEffect(() => {
     loadUser();
@@ -34,7 +35,7 @@ export default function HomeScreen({ navigation }: any) {
 
   const handleLogout = async () => {
     try {
-      await logout(); // ✅ Usar logout del contexto
+      await logout();
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
@@ -72,7 +73,7 @@ export default function HomeScreen({ navigation }: any) {
       subtitle: 'Próximamente disponible',
       icon: 'clipboard-text',
       color: '#5856D6',
-      onPress: () => alert('Función en desarrollo'),
+      onPress: () => Alert.alert('Próximamente', 'Función en desarrollo'),  // ✅ CORREGIDO
     },
     {
       id: 4,
@@ -80,7 +81,7 @@ export default function HomeScreen({ navigation }: any) {
       subtitle: 'Próximamente disponible',
       icon: 'heart',
       color: '#FF2D55',
-      onPress: () => alert('Función en desarrollo'),
+      onPress: () => Alert.alert('Próximamente', 'Función en desarrollo'),  // ✅ CORREGIDO
     },
     {
       id: 5,
@@ -88,7 +89,7 @@ export default function HomeScreen({ navigation }: any) {
       subtitle: 'Próximamente disponible',
       icon: 'cog',
       color: '#8E8E93',
-      onPress: () => alert('Función en desarrollo'),
+      onPress: () => Alert.alert('Próximamente', 'Función en desarrollo'),  // ✅ CORREGIDO
     },
     {
       id: 6,
@@ -96,7 +97,7 @@ export default function HomeScreen({ navigation }: any) {
       subtitle: 'Próximamente disponible',
       icon: 'help-circle',
       color: '#5AC8FA',
-      onPress: () => alert('Función en desarrollo'),
+      onPress: () => Alert.alert('Próximamente', 'Función en desarrollo'),  // ✅ CORREGIDO
     },
   ];
 

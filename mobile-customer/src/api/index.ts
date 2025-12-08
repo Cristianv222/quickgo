@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // URL del backend - Cambiar por tu IP local si usas teléfono físico
 // Para emulador/navegador usa localhost
-const API_URL = 'http://192.168.1.25:8000/api';
+const API_URL = 'http://192.168.1.105:8000/api';
 
 const api = axios.create({
   baseURL: API_URL,
