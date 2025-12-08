@@ -426,10 +426,11 @@ class ProductAdmin(admin.ModelAdmin):
     
     def rating_display(self, obj):
         stars = '⭐' * int(obj.rating)
+        rating_value = f'{obj.rating:.1f}'
         return format_html(
-            '{} <span style="color: #666;">({:.1f})</span>',
-            stars,
-            obj.rating
+            '{} <span style="color: #666;">({})</span>',
+            mark_safe(stars),
+            rating_value
         )
     rating_display.short_description = 'Calificación'
     

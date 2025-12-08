@@ -41,7 +41,7 @@ services:
       - static_volume:/app/staticfiles
       - media_volume:/app/media
     ports:
-      - "8000:8000"
+      - "0.0.0.0:8000:8000" 
     environment:
       - DEBUG=${DEBUG}
       - SECRET_KEY=${SECRET_KEY}

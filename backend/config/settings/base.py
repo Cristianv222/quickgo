@@ -6,7 +6,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,192.168.1.25').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',') + [
+    'noir-scrappily-tod.ngrok-free.dev', 
+]
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -143,9 +146,15 @@ CORS_ALLOW_ALL_ORIGINS = True  # Para desarrollo - permitir todas las origenes
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://noir-scrappily-tod.ngrok-free.dev",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+# CSRF Settings - AGREGADO
+CSRF_TRUSTED_ORIGINS = [
+    "https://noir-scrappily-tod.ngrok-free.dev",
+]
 
 # Celery Configuration
 CELERY_BROKER_URL = config('REDIS_URL', default='redis://localhost:6379/0')

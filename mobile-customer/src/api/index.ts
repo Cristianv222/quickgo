@@ -1,15 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// URL del backend - Configurar según tu entorno:
-// - Web/Expo Go en navegador: 'http://localhost:8000/api'
-// - Emulador Android: 'http://10.0.2.2:8000/api'
-// - Emulador iOS: 'http://localhost:8000/api'
-// - Dispositivo físico: 'http://TU_IP_LOCAL:8000/api' ← USANDO ESTA
-const API_URL = 'http://192.168.1.25:8000/api';
+const API_URL = 'https://noir-scrappily-tod.ngrok-free.dev/api';
 
-// Debug: Mostrar la URL que se está usando
-console.log('🌐 API URL configurada:', API_URL);
 
 const api = axios.create({
   baseURL: API_URL,
