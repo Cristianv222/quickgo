@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from 'react-native';
 import { authAPI } from '../../api';
 import { useAuth } from '../../context/AuthContext';
@@ -30,7 +31,7 @@ export default function LoginScreen({ navigation }: any) {
     try {
       await authAPI.login(email.trim().toLowerCase(), password);
       Alert.alert('Éxito', '¡Bienvenido!');
-      login(); // Actualiza el estado de autenticación
+      login();
     } catch (error: any) {
       console.error('Error de login:', error);
       Alert.alert(
@@ -50,7 +51,11 @@ export default function LoginScreen({ navigation }: any) {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={styles.logoEmoji}>🚀</Text>
+            <Image
+              source={require('../../assets/icon.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
             <Text style={styles.title}>QuickGo</Text>
             <Text style={styles.subtitle}>Comida rápida a tu puerta</Text>
           </View>
@@ -122,8 +127,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 40,
   },
-  logoEmoji: {
-    fontSize: 64,
+  logo: {
+    width: 120,
+    height: 120,
     marginBottom: 16,
   },
   title: {
