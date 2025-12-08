@@ -301,7 +301,7 @@ export const OrderDetailScreen = () => {
                                 )}
                             </View>
                         </View>
-                        <Text style={styles.productPrice}>${item.subtotal?.toFixed(2)}</Text>
+                        <Text style={styles.productPrice}>${Number(item.subtotal || 0).toFixed(2)}</Text>
                     </View>
                 ))}
             </View>
@@ -320,29 +320,29 @@ export const OrderDetailScreen = () => {
                 <Text style={styles.sectionTitle}>💰 Resumen de pago</Text>
                 <View style={styles.summaryRow}>
                     <Text style={styles.summaryLabel}>Subtotal</Text>
-                    <Text style={styles.summaryValue}>${order.subtotal.toFixed(2)}</Text>
+                    <Text style={styles.summaryValue}>${Number(order.subtotal || 0).toFixed(2)}</Text>
                 </View>
                 <View style={styles.summaryRow}>
                     <Text style={styles.summaryLabel}>Envío</Text>
-                    <Text style={styles.summaryValue}>${order.delivery_fee.toFixed(2)}</Text>
+                    <Text style={styles.summaryValue}>${Number(order.delivery_fee || 0).toFixed(2)}</Text>
                 </View>
                 <View style={styles.summaryRow}>
                     <Text style={styles.summaryLabel}>Tarifa de servicio</Text>
-                    <Text style={styles.summaryValue}>${order.service_fee.toFixed(2)}</Text>
+                    <Text style={styles.summaryValue}>${Number(order.service_fee || 0).toFixed(2)}</Text>
                 </View>
                 <View style={styles.summaryRow}>
                     <Text style={styles.summaryLabel}>IVA</Text>
-                    <Text style={styles.summaryValue}>${order.tax.toFixed(2)}</Text>
+                    <Text style={styles.summaryValue}>${Number(order.tax || 0).toFixed(2)}</Text>
                 </View>
                 {order.tip > 0 && (
                     <View style={styles.summaryRow}>
                         <Text style={styles.summaryLabel}>Propina</Text>
-                        <Text style={styles.summaryValue}>${order.tip.toFixed(2)}</Text>
+                        <Text style={styles.summaryValue}>${Number(order.tip || 0).toFixed(2)}</Text>
                     </View>
                 )}
                 <View style={[styles.summaryRow, styles.totalRow]}>
                     <Text style={styles.totalLabel}>Total</Text>
-                    <Text style={styles.totalValue}>${order.total.toFixed(2)}</Text>
+                    <Text style={styles.totalValue}>${Number(order.total || 0).toFixed(2)}</Text>
                 </View>
                 <View style={styles.paymentMethod}>
                     <Text style={styles.paymentMethodLabel}>Método de pago:</Text>
