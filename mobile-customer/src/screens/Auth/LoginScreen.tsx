@@ -10,7 +10,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Image, // Añadir esta importación
 } from 'react-native';
 import { authAPI } from '../../api';
 import { useAuth } from '../../context/AuthContext';
@@ -51,12 +50,7 @@ export default function LoginScreen({ navigation }: any) {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.content}>
           <View style={styles.header}>
-            {/* Reemplazar el emoji con tu logo */}
-            <Image 
-              source={require('../../assets/icon.png')} // Ruta a tu logo
-              style={styles.logo}
-              resizeMode="contain"
-            />
+            <Text style={styles.logoEmoji}>🚀</Text>
             <Text style={styles.title}>QuickGo</Text>
             <Text style={styles.subtitle}>Comida rápida a tu puerta</Text>
           </View>
@@ -128,12 +122,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 40,
   },
-  logo: {
-    width: 80, // Ajusta según el tamaño de tu logo
-    height: 80, // Ajusta según el tamaño de tu logo
+  logoEmoji: {
+    fontSize: 64,
     marginBottom: 16,
-    // Si quieres un borde redondeado
-    // borderRadius: 40, // Para hacerlo circular si es cuadrado
   },
   title: {
     fontSize: 32,

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// URL del backend - CORREGIDA
-const API_URL = 'http://192.168.1.16:8000/api';
+// URL del backend - Cambiar por tu IP local si usas teléfono físico
+// Para emulador/navegador usa localhost
+const API_URL = 'http://192.168.1.25:8000/api';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -10,14 +11,36 @@ const api = axios.create({
   timeout: 10000,
 });
 
-// Interceptor para agregar token
+// Interceptor para agregar token (solo si existe y es válido)
 api.interceptors.request.use(
   async (config) => {
-    const token = await AsyncStorage.getItem('access_token');
-    if (token) config.headers.Authorization = `Bearer ${token}`;
+    try {
+      const token = await AsyncStorage.getItem('access_token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (error) {
+      console.log('Error obteniendo token:', error);
+    }
     return config;
   },
   (error) => Promise.reject(error)
+);
+
+// Interceptor para manejar errores 401 (token expirado)
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response?.status === 401) {
+      // Token expirado o inválido - limpiar storage
+      try {
+        await AsyncStorage.multiRemove(['access_token', 'refresh_token', 'user']);
+      } catch (e) {
+        console.log('Error limpiando tokens:', e);
+      }
+    }
+    return Promise.reject(error);
+  }
 );
 
 export const authAPI = {
