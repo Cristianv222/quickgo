@@ -105,7 +105,7 @@ export const OrdersScreen = () => {
                 <Text style={styles.itemsCount}>
                     {item.total_items} {item.total_items === 1 ? 'producto' : 'productos'}
                 </Text>
-                <Text style={styles.orderTotal}>${item.total.toFixed(2)}</Text>
+                <Text style={styles.orderTotal}>${Number(item.total || 0).toFixed(2)}</Text>
             </View>
 
             {item.estimated_delivery_time && (
