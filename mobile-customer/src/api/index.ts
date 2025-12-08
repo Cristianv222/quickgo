@@ -1,14 +1,20 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// URL del backend - Cambiar por tu IP local si usas teléfono físico
-// Para emulador/navegador usa localhost
-const API_URL = 'http://192.168.1.105:8000/api';
+// URL del backend - Configurar según tu entorno:
+// - Web/Expo Go en navegador: 'http://localhost:8000/api'
+// - Emulador Android: 'http://10.0.2.2:8000/api'
+// - Emulador iOS: 'http://localhost:8000/api'
+// - Dispositivo físico: 'http://TU_IP_LOCAL:8000/api' ← USANDO ESTA
+const API_URL = 'http://192.168.1.25:8000/api';
+
+// Debug: Mostrar la URL que se está usando
+console.log('🌐 API URL configurada:', API_URL);
 
 const api = axios.create({
   baseURL: API_URL,
   headers: { 'Content-Type': 'application/json' },
-  timeout: 10000,
+  timeout: 30000, // 30 segundos para conexiones móviles
 });
 
 // Interceptor para agregar token (solo si existe y es válido)
@@ -27,10 +33,19 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Interceptor para manejar errores 401 (token expirado)
+// Interceptor para manejar errores
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
+    // Debug: Mostrar detalles del error
+    console.error('❌ Error de API:', {
+      message: error.message,
+      code: error.code,
+      url: error.config?.url,
+      baseURL: error.config?.baseURL,
+      status: error.response?.status,
+    });
+
     if (error.response?.status === 401) {
       // Token expirado o inválido - limpiar storage
       try {

@@ -22,7 +22,7 @@ const RestaurantDetailScreen = ({ route, navigation }: any) => {
   const [restaurant, setRestaurant] = useState<RestaurantDetail | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => { 
+  useEffect(() => {
     loadRestaurant();
   }, []);
 
@@ -99,10 +99,10 @@ const RestaurantDetailScreen = ({ route, navigation }: any) => {
             </View>
           )}
 
-          {/* Botón para ver menú (próximamente) */}
+          {/* Botón para ver menú */}
           <TouchableOpacity
             style={styles.menuButton}
-            onPress={() => Alert.alert('Próximamente', 'Menú en desarrollo')}
+            onPress={() => navigation.navigate('Menu', { restaurantId })}
           >
             <Text style={styles.menuButtonText}>Ver Menú</Text>
           </TouchableOpacity>

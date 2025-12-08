@@ -31,24 +31,24 @@ class Command(BaseCommand):
         
         self.stdout.write(self.style.WARNING(f'Creando {count} restaurantes de prueba...'))
         
-        # Crear usuario admin si no existe (para aprobar restaurantes)
-        admin_user, created = User.objects.get_or_create(
-            email='admin@quickgo.com',
-            defaults={
-                'username': 'admin',
-                'first_name': 'Admin',
-                'last_name': 'QuickGo',
-                'phone': '0999999999',
-                'user_type': User.UserType.ADMIN,
-                'is_staff': True,
-                'is_superuser': True,
-                'is_verified': True,
-            }
-        )
-        if created:
-            admin_user.set_password('admin123')
-            admin_user.save()
-            self.stdout.write(self.style.SUCCESS('✓ Usuario admin creado'))
+        # Obtener usuario admin existente o crear uno nuevo
+        try:
+            admin_user = User.objects.filter(is_superuser=True).first()
+            if not admin_user:
+                admin_user = User.objects.create_superuser(
+                    username='admin_quickgo',
+                    email='admin@quickgo.com',
+                    password='admin123',
+                    first_name='Admin',
+                    last_name='QuickGo',
+                    phone='0999999999',
+                )
+                self.stdout.write(self.style.SUCCESS('✓ Usuario admin creado'))
+            else:
+                self.stdout.write(self.style.SUCCESS(f'✓ Usando admin existente: {admin_user.username}'))
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f'Error con usuario admin: {str(e)}'))
+            return
 
         # Datos de ejemplo
         restaurants_data = [

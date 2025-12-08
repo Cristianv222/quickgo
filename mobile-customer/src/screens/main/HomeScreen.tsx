@@ -24,10 +24,16 @@ export default function HomeScreen({ navigation }: any) {
 
   const loadUser = async () => {
     try {
+      // Cargar usuario desde AsyncStorage en lugar del API
       const currentUser = await authAPI.getCurrentUser();
       setUser(currentUser);
     } catch (error) {
       console.error('Error al cargar usuario:', error);
+      // Si no hay usuario en storage, usar valores por defecto
+      setUser({
+        first_name: 'Usuario',
+        email: 'usuario@quickgo.com'
+      });
     } finally {
       setLoading(false);
     }
@@ -70,10 +76,10 @@ export default function HomeScreen({ navigation }: any) {
     {
       id: 3,
       title: 'Mis Pedidos',
-      subtitle: 'Próximamente disponible',
+      subtitle: 'Ver tus órdenes activas',
       icon: 'clipboard-text',
       color: '#5856D6',
-      onPress: () => Alert.alert('Próximamente', 'Función en desarrollo'),  // ✅ CORREGIDO
+      onPress: () => navigation.navigate('Orders'),
     },
     {
       id: 4,

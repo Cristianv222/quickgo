@@ -23,6 +23,13 @@ import RestaurantsScreen from '../screens/Restaurant/RestaurantsScreen';
 import RestaurantDetailScreen from '../screens/Restaurant/RestaurantDetailScreen';
 import RestaurantReviewsScreen from '../screens/Restaurant/RestaurantReviewsScreen';
 import CreateReviewScreen from '../screens/Restaurant/CreateReviewScreen';
+import { MenuScreen } from '../screens/Restaurant/MenuScreen';
+
+// Cart & Order Screens
+import { CartScreen } from '../screens/Cart/CartScreen';
+import { CheckoutScreen } from '../screens/Cart/CheckoutScreen';
+import { OrdersScreen } from '../screens/Orders/OrdersScreen';
+import { OrderDetailScreen } from '../screens/Orders/OrderDetailScreen';
 
 // ============================================
 // CREAR NAVIGATORS
@@ -62,17 +69,17 @@ const MainTabs = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen 
+      <Tab.Screen
         name="HomeTab"
         component={HomeScreen}
         options={{ title: 'Inicio' }}
       />
-      <Tab.Screen 
+      <Tab.Screen
         name="RestaurantsTab"
         component={RestaurantsScreen}
         options={{ title: 'Restaurantes' }}
       />
-      <Tab.Screen 
+      <Tab.Screen
         name="ProfileTab"
         component={ProfileScreen}
         options={{ title: 'Perfil' }}
@@ -91,11 +98,11 @@ const AuthStack = () => {
         headerShown: false,
       }}
     >
-      <AuthStackNav.Screen 
+      <AuthStackNav.Screen
         name="Login"
         component={LoginScreen}
       />
-      <AuthStackNav.Screen 
+      <AuthStackNav.Screen
         name="Register"
         component={RegisterScreen}
       />
@@ -113,35 +120,82 @@ const MainStack = () => {
         headerShown: true,
       }}
     >
-      <Stack.Screen 
+      <Stack.Screen
         name="MainTabs"
         component={MainTabs}
         options={{ headerShown: false }}
       />
-      
-      <Stack.Screen 
+
+      <Stack.Screen
         name="RestaurantDetail"
         component={RestaurantDetailScreen}
-        options={{ 
+        options={{
           headerShown: false,
           presentation: 'card',
         }}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name="RestaurantReviews"
         component={RestaurantReviewsScreen}
-        options={{ 
+        options={{
           title: 'Reseñas',
           headerBackTitle: 'Volver',
           headerTintColor: '#FF6B6B',
         }}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name="CreateReview"
         component={CreateReviewScreen}
-        options={{ 
+        options={{
           title: 'Escribir Reseña',
           headerBackTitle: 'Cancelar',
+          headerTintColor: '#FF6B6B',
+        }}
+      />
+
+      {/* Menu & Order Screens */}
+      <Stack.Screen
+        name="Menu"
+        component={MenuScreen}
+        options={{
+          title: 'Menú',
+          headerBackTitle: 'Volver',
+          headerTintColor: '#FF6B6B',
+        }}
+      />
+      <Stack.Screen
+        name="Cart"
+        component={CartScreen}
+        options={{
+          title: 'Carrito',
+          headerBackTitle: 'Volver',
+          headerTintColor: '#FF6B6B',
+        }}
+      />
+      <Stack.Screen
+        name="Checkout"
+        component={CheckoutScreen}
+        options={{
+          title: 'Finalizar Pedido',
+          headerBackTitle: 'Volver',
+          headerTintColor: '#FF6B6B',
+        }}
+      />
+      <Stack.Screen
+        name="Orders"
+        component={OrdersScreen}
+        options={{
+          title: 'Mis Órdenes',
+          headerBackTitle: 'Volver',
+          headerTintColor: '#FF6B6B',
+        }}
+      />
+      <Stack.Screen
+        name="OrderDetail"
+        component={OrderDetailScreen}
+        options={{
+          title: 'Detalle de Orden',
+          headerBackTitle: 'Volver',
           headerTintColor: '#FF6B6B',
         }}
       />

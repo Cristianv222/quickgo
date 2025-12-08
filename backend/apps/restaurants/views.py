@@ -35,7 +35,7 @@ class RestaurantViewSet(viewsets.ModelViewSet):
     
     def get_permissions(self):
         """Define permisos según la acción"""
-        if self.action in ['list', 'retrieve', 'nearby', 'featured', 'search']:
+        if self.action in ['list', 'retrieve', 'nearby', 'featured', 'search', 'menu']:
             return [AllowAny()]
         return [IsAuthenticated()]
     
@@ -208,6 +208,24 @@ class RestaurantViewSet(viewsets.ModelViewSet):
             'message': 'Funcionalidad de favoritos por implementar',
             'restaurant_id': restaurant.id
         })
+    
+    @action(detail=True, methods=['get'], permission_classes=[AllowAny])
+    def menu(self, request, pk=None):
+        """
+        GET /api/restaurants/{id}/menu/
+        Retorna el menú (productos) de un restaurante
+        """
+        from apps.products.models import Product
+        from apps.products.serializers import ProductListSerializer
+        
+        restaurant = self.get_object()
+        products = Product.objects.filter(
+            restaurant=restaurant,
+            is_active=True
+        ).select_related('restaurant', 'category').prefetch_related('extras', 'option_groups')
+        
+        serializer = ProductListSerializer(products, many=True)
+        return Response(serializer.data)
 
 
 class RestaurantReviewViewSet(viewsets.ModelViewSet):
